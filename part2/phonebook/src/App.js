@@ -1,21 +1,27 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import Form from './components/Form'
 import InputField from './components/InputField'
 import PhonebookContents from './components/PhonebookContents'
+import axios from 'axios'
 
 
 const App = () => {
 
+
   // State of the app
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-  ]) 
+  const [persons,   setPersons]   = useState([]) 
   const [newName,   setNewName]   = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+
+
+  // Fetching data from the server
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/persons")
+      .then(response => setPersons(response.data))
+  }, [])
+
 
   // Event handlers
   const handleNameInputChange   = (event) => setNewName(event.target.value)
@@ -37,6 +43,7 @@ const App = () => {
     }
   }
 
+  
   // Numbers to display
   const filterLower = newFilter.toLowerCase()
   const personsToShow = persons.filter(p => p.name.toLowerCase().includes(filterLower))
