@@ -1,31 +1,7 @@
 import React, { useState } from 'react'
-
-
-const InputField = ({name, value, onChange}) => {
-  return(
-    <div>
-      {name}: <input value = {value} onChange = {onChange}/>
-    </div>
-  )
-}
-
-const Form = (props) => {
-  return(
-    <form onSubmit = {props.handleSavePerson}>
-      <InputField name = "name"   value = {props.newName}   onChange = {props.handleNameInputChange} />
-      <InputField name = "number" value = {props.newNumber} onChange = {props.handleNumberInputChange} />
-      <div>
-        <button type="submit">add</button>
-      </div>
-    </form>
-  )
-}
-
-const PhonebookContents = ({persons}) => {
-  return( 
-    persons.map(p => <div key = {p.name}>{p.name} {p.number}</div>)
-  )
-}
+import Form from './components/Form'
+import InputField from './components/InputField'
+import PhonebookContents from './components/PhonebookContents'
 
 
 const App = () => {
